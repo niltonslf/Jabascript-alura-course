@@ -2,43 +2,18 @@
 var titulo = document.querySelector('.titulo')
 titulo.textContent = "Curso javascript"
 
-validarDados()
+validarPacientes();
 
-function validarDados(){
-  var pacientes = document.querySelectorAll(".paciente")
-  console.log(pacientes);
-  pacientes.forEach(paciente => {
-    var tdPeso = paciente.querySelector('.info-peso')
-    var peso = tdPeso.textContent
+//Botão de adicionar paciente
+var botaoAdicionar = document.querySelector("#adicionar-paciente");
+botaoAdicionar.addEventListener("click", event => {
+  event.preventDefault();
 
-    var tdAltura = paciente.querySelector('.info-altura')
-    var altura = tdAltura.textContent
-
-    var tdImc = paciente.querySelector('.info-imc')
-
-    var pesoValido = true
-    var AlturaValido = true
-
-    if (peso <= 0 || peso >= 1000) {
-      tdImc.textContent = "Peso inválido"
-      pesoValido = false
-      paciente.classList.add('paciente-invalido')
-    }
-
-    if (altura <= 0 || altura >= 4) {
-      tdImc.textContent = "Altura inválida"
-      AlturaValido = false
-      paciente.classList.add('paciente-invalido')
-    }
-
-    if (pesoValido && AlturaValido) {
-      tdImc.textContent = calculaImc(peso, altura)
-    }
-  }) //endForeach
-}
-
-
-
-
+  let form = document.querySelector(".form"); // seleciona o form de inserçao
+  let paciente = obtemPacienteDoFormulario(form); // returna um objeto paciente
+  montaTabela(paciente); // criar colunas com os dados do form
+  validarPacientes(); // validadar os dados da tabela
+  form.reset(); // limpar o formulário
+});
 
 
